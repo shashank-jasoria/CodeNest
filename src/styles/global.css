@@ -1,0 +1,199 @@
+/* ============================================
+   CODENEST DESIGN SYSTEM
+   ============================================ */
+
+:root {
+  /* ======================================================
+      LIGHT THEME
+     ====================================================== */
+
+  /* Backgrounds */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  --bg-hover: #e2e8f0;
+
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --text-white: #ffffff;
+
+  /* Borders */
+  --border-primary: #e2e8f0;
+  --border-secondary: #cbd5e1;
+
+  /* Brand */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #dbeafe;
+
+  /* Success */
+  --success: #22c55e;
+  --success-light: #dcfce7;
+
+  /* Warning */
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+
+  /* Danger */
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --danger-light: #fee2e2;
+
+  /* Code Editor */
+  --editor-bg: #ffffff;
+  --editor-sidebar: #f8fafc;
+  --editor-line: #64748b;
+  --editor-selection: #dbeafe;
+  --editor-current-line: #f1f5f9;
+
+  /* Output */
+  --output-bg: #f8fafc;
+
+  /* Cards */
+  --card-bg: #ffffff;
+  --card-hover: #f8fafc;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 8px 20px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 15px 40px rgba(15, 23, 42, 0.12);
+
+  /* Room Status */
+  --online: #22c55e;
+  --offline: #94a3b8;
+
+  /* Syntax Highlighting */
+
+  --syntax-keyword: #2563eb;
+  --syntax-string: #16a34a;
+  --syntax-number: #ea580c;
+  --syntax-function: #9333ea;
+  --syntax-comment: #94a3b8;
+}
+
+[data-theme="dark"] {
+  /* ======================================================
+      DARK THEME
+     ====================================================== */
+
+  /* Backgrounds */
+  --bg-primary: #0b1120;
+  --bg-secondary: #111827;
+  --bg-tertiary: #1e293b;
+  --bg-hover: #334155;
+
+  /* Text */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-white: #ffffff;
+
+  /* Borders */
+  --border-primary: #334155;
+  --border-secondary: #475569;
+
+  /* Brand */
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-light: rgba(59, 130, 246, 0.15);
+
+  /* Success */
+  --success: #22c55e;
+  --success-light: rgba(34, 197, 94, 0.15);
+
+  /* Warning */
+  --warning: #f59e0b;
+  --warning-light: rgba(245, 158, 11, 0.15);
+
+  /* Danger */
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --danger-light: rgba(239, 68, 68, 0.15);
+
+  /* Editor */
+  --editor-bg: #0f172a;
+  --editor-sidebar: #111827;
+  --editor-line: #64748b;
+  --editor-selection: #1d4ed8;
+  --editor-current-line: #172554;
+
+  /* Output */
+  --output-bg: #111827;
+
+  /* Cards */
+  --card-bg: #111827;
+  --card-hover: #1e293b;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.6);
+
+  /* Room Status */
+  --online: #22c55e;
+  --offline: #64748b;
+
+  /* Syntax Highlighting */
+
+  --syntax-keyword: #60a5fa;
+  --syntax-string: #4ade80;
+  --syntax-number: #fb923c;
+  --syntax-function: #c084fc;
+  --syntax-comment: #64748b;
+}
+
+* {
+  font-family: "Inter", sans-serif;
+}
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-md);
+}
+
+button.primary {
+  background: var(--primary);
+  color: white;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  box-shadow: var(--shadow-md);
+}
+
+button.primary:hover {
+  background: var(--primary-hover);
+}
+
+.sidebar {
+  background: var(--bg-secondary);
+}
+
+.editor {
+  background: var(--editor-bg);
+}
+
+.output {
+  background: var(--output-bg);
+}
+
+.language-card:hover {
+  background: var(--card-hover);
+}
+
+input {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+}
+
+input::placeholder {
+  color: var(--text-muted);
+}

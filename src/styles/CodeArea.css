@@ -1,0 +1,53 @@
+.code-area {
+  background-color: #242424;
+  display: flex;
+}
+
+.code-editor {
+  width: 75vw;
+  height: 50vh;
+}
+
+.home-btn {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.run-btn {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700 !important;
+}
+
+.codeAreaDescription {
+  color: white;
+  font-weight: 700;
+}
+
+#navBar {
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code-terminal {
+  width: 25vw;
+  height: 100vh;
+  border-left: 10px solid rgb(255, 93, 93);
+  display: inline;
+  color: white;
+}
+
+.programOutput {
+  height: 8vh;
+  background-color: white;
+  color: #242424;
+  padding: 2vh 2vw;
+}

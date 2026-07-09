@@ -1,0 +1,22 @@
+.type-body {
+  display: flex;
+  border: 1px solid var(--border-primary);
+  border-radius: 10px;
+  background: var(--bg-tertiary);
+  padding: 20px;
+  gap: 20px;
+  align-items: end;
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-md);
+}
+.text-heading {
+  font-weight: 600;
+}
+.text-sub_heading {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin-top: 6px;
+}
+.type-img {
+  width: 50px;
+}

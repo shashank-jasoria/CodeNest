@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0px;
+}
+.main-text {
+  font-size: 23px;
+  font-weight: 600;
+}
+.lg-text {
+  font-size: 33px;
+  font-weight: 600;
+}
+.name-heading {
+  color: var(--primary);
+}
+.support-text {
+  color: var(--text-secondary);
+  margin-top: 5px;
+  margin-left: 1px;
+}
+.button-box {
+  display: flex;
+  gap: 7px;
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 37px;
+  font-size: 16px;
+  padding: 0px 20px;
+  background: var(--bg-tertiary);
+  box-shadow: var(--shadow-md);
+}
+.button-text {
+  color: var(--primary);
+  font-size: 14px;
+}
