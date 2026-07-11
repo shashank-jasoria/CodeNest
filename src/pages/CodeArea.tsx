@@ -4,14 +4,14 @@
 import "./../styles/CodeArea.css";
 import { useParams } from "react-router-dom";
 import { supportedLanguages } from "../data/LanguageConfig";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import TopBar from "../UI/TopBar";
-import TitleBar from "../UI/TitleBar";
-import CodeInput from "../UI/CodeInput";
+import { useRef } from "react";
+import CodeInput, { CodeInputRef } from "./../UI/CodeInput";
 import CodeOutput from "../UI/CodeOutput";
 
 function CodeArea() {
-  const editorRef = useRef<any>(null);
+  // const editorRef = useRef<any>(null);
   const [terminalMessage, setTerminalMessage] = useState("Press Run Button!");
   const [isRunning, setIsRunning] = useState(false);
   const { language } = useParams();
@@ -21,6 +21,7 @@ function CodeArea() {
     }
   });
 
+  const editorRef = useRef<CodeInputRef>(null);
   const compileAndRun = async () => {
     setIsRunning(true);
     setTerminalMessage("Loading...");
@@ -58,9 +59,15 @@ function CodeArea() {
         selectedLanguage={defaultConfig?.language || ""}
         onRunButtonClick={compileAndRun}
         isRunning={isRunning}
+        onClear={() => editorRef.current?.clearCode()}
+        onCopy={() => editorRef.current?.copyCode()}
       />
       <div className="process">
-        <CodeInput language={language} defaultConfig={defaultConfig || {}} />
+        <CodeInput
+          ref={editorRef}
+          language={language}
+          defaultConfig={defaultConfig || {}}
+        />
         <CodeOutput terminalMessage={terminalMessage} />
       </div>
     </div>

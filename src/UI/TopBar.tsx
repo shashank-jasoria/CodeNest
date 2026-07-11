@@ -10,10 +10,14 @@ export default function TopBar({
   selectedLanguage,
   onRunButtonClick,
   isRunning,
+  onClear,
+  onCopy,
 }: {
   selectedLanguage: string;
   onRunButtonClick: () => void;
   isRunning: boolean;
+  onClear: () => void;
+  onCopy: () => void;
 }) {
   const { theme, toggleTheme } = useTheme();
   return (
@@ -50,13 +54,13 @@ export default function TopBar({
         </div>
       </div>
       <div className="right-part">
-        <div className="top-bar_btn">
+        <div className="top-bar_btn" onClick={onClear}>
           <div className="top_btn-img">
             <FaRegTrashCan />
           </div>
           <div className="top_btn-text">Clear</div>
         </div>
-        <div className="top-bar_btn">
+        <div className="top-bar_btn" onClick={onCopy}>
           <div className="top_btn-img">
             <MdOutlineContentCopy />
           </div>

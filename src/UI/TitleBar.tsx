@@ -15,7 +15,7 @@ export default function TitleBar({ language }: TitleBarProps) {
   return (
     <div className="editor-header">
       <div className="file-name">
-        <div className="active-file"></div> main.{defaultConfig?.languageCode}
+        <div className="active-file"></div> {defaultConfig?.sourceFileName}
       </div>
     </div>
   );
