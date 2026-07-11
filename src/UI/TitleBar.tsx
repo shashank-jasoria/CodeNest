@@ -1,4 +1,3 @@
-import React from "react";
 import { supportedLanguages } from "../data/LanguageConfig";
 
 type TitleBarProps = {

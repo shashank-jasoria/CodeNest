@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { spawn } from "child_process";
 import { LanguageMap } from "../constants/LanguageMap";
-
+import path from "path";
+import os from "os";
 interface CompilationResult {
   status: "success" | "error";
   message: string;
@@ -16,7 +17,7 @@ export const compileProgram = async ({
   languageCode: string;
   targetFileName: string;
 }): Promise<CompilationResult> => {
-  const filePath = `${__dirname}/../../box`;
+  const filePath = path.join(os.tmpdir(), "compile-box");
   const { compileCommand } = LanguageMap[languageCode];
   return new Promise((resolve) => {
     const compileProcess = spawn(compileCommand, [sourceFileName], {

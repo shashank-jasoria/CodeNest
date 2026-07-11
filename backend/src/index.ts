@@ -5,13 +5,13 @@ import cors from "cors";
 import { compileAndRun } from "./controllers/CompileAndRun";
 import { healthChecks } from "./controllers/HealthCheck";
 const app = express();
-const port = 3300;
+const port = Number(process.env.PORT) || 3300;
 import path from "path";
 
 app.use(
   cors({
     credentials: true,
-  })
+  }),
 );
 
 app.use(bodyParser.json());

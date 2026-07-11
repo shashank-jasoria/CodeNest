@@ -1,7 +1,8 @@
 import { LanguageMap } from "../constants/LanguageMap";
 import { spawn } from "child_process";
 import fs from "fs-extra";
-
+import os from "os";
+import path from "path";
 interface RunResult {
   status: "success" | "error";
   message: string;
@@ -14,7 +15,7 @@ export const runProgram = async ({
   runFile: string;
   languageCode: string;
 }): Promise<RunResult> => {
-  const filePath = `${__dirname}/../../box`;
+  const filePath = path.join(os.tmpdir(), "compile-box");
   const { runCommand, runArgs } = LanguageMap[languageCode];
 
   return new Promise((resolve) => {
@@ -60,7 +61,7 @@ export const runProgram = async ({
 
 export const clearBoxFiles = async () => {
   try {
-    const filePath = `${__dirname}/../../box/`;
+    const filePath = path.join(os.tmpdir(), "compile-box");
     await fs.emptyDir(filePath);
     return {
       status: "success",

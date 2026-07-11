@@ -1,4 +1,3 @@
-import React from "react";
 import "./../styles/heading.css";
 import { IoCodeSlashOutline } from "react-icons/io5";
 import { FaMoon, FaRegSun } from "react-icons/fa";

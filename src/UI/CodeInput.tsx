@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { forwardRef, useImperativeHandle, useRef } from "react";
-import Editor, { loader } from "@monaco-editor/react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
+import Editor from "@monaco-editor/react";
 import TitleBar from "./TitleBar";
 import { useTheme } from "../context/ThemeContext";
 import { toast } from "react-toastify";

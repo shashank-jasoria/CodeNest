@@ -1,4 +1,3 @@
-import React from "react";
 import "./../styles/NavBar.css";
 import { AiOutlineHome } from "react-icons/ai";
 import { IoCodeSlashOutline } from "react-icons/io5";
