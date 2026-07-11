@@ -1,46 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Editor from "@monaco-editor/react";
-import "./../styles/CodeArea.css";
-import { HouseDoorFill } from "react-bootstrap-icons";
-import { Link, useParams } from "react-router-dom";
-import { supportedLanguages } from "./LanguageConfig";
-import { useRef, useState } from "react";
 
-function NavBar({
-  selectedLanguage,
-  onRunButtonClick,
-  isRunning,
-}: {
-  selectedLanguage: string;
-  onRunButtonClick: () => void;
-  isRunning: boolean;
-}) {
-  return (
-    <div id="navBar">
-      <div>
-        <Link to="/">
-          <button type="button" className="btn btn-primary btn-lg home-btn">
-            <HouseDoorFill />
-          </button>
-        </Link>
-        <span className="codeAreaDescription ms-4">
-          CodeNest :::: {selectedLanguage}
-        </span>
-      </div>
-      <div>
-        <button
-          type="button"
-          className="btn btn-primary btn-lg run-btn"
-          onClick={onRunButtonClick}
-          disabled={isRunning}
-        >
-          {isRunning ? "Running..." : "Run"}
-        </button>
-      </div>
-    </div>
-  );
-}
+import "./../styles/CodeArea.css";
+import { useParams } from "react-router-dom";
+import { supportedLanguages } from "../data/LanguageConfig";
+import { useRef, useState } from "react";
+import TopBar from "../UI/TopBar";
+import TitleBar from "../UI/TitleBar";
+import CodeInput from "../UI/CodeInput";
+import CodeOutput from "../UI/CodeOutput";
 
 function CodeArea() {
   const editorRef = useRef<any>(null);
@@ -52,10 +20,6 @@ function CodeArea() {
       return languageConfig;
     }
   });
-
-  function handleEditorDidMount(editor: any) {
-    editorRef.current = editor;
-  }
 
   const compileAndRun = async () => {
     setIsRunning(true);
@@ -89,25 +53,15 @@ function CodeArea() {
   };
 
   return (
-    <div className="code-area">
-      <div className="code-editor">
-        <NavBar
-          selectedLanguage={defaultConfig?.language || ""}
-          onRunButtonClick={compileAndRun}
-          isRunning={isRunning}
-        />
-        <Editor
-          height="92vh"
-          defaultLanguage={defaultConfig?.languageCode || ""}
-          defaultValue={defaultConfig?.boilerPlateCode || ""}
-          onMount={handleEditorDidMount}
-        />
-      </div>
-      <div className="code-terminal">
-        <h5 className="programOutput d-flex align-items-center justify-content-center mb-3">
-          Program Output
-        </h5>
-        <pre className="ms-3">{terminalMessage}</pre>
+    <div className="code-box">
+      <TopBar
+        selectedLanguage={defaultConfig?.language || ""}
+        onRunButtonClick={compileAndRun}
+        isRunning={isRunning}
+      />
+      <div className="process">
+        <CodeInput language={language} defaultConfig={defaultConfig || {}} />
+        <CodeOutput terminalMessage={terminalMessage} />
       </div>
     </div>
   );

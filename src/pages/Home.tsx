@@ -1,13 +1,13 @@
-import CodeType from "./CodeType";
-import LanduageSelectionMenu from "./LanduageSelectionMenu";
-import "./../styles/LanguageSelection.css";
-import NavBar from "./NavBar";
-import Heading from "./Heading";
+import CodeType from "../UI/CodeType";
+import LanduageSelectionMenu from "../UI/LanduageSelectionMenu";
+import "./../styles/home.css";
+
+import Heading from "../UI/Heading";
 import { useState } from "react";
-import { supportedLanguages } from "./LanguageConfig";
+import { supportedLanguages } from "../data/LanguageConfig";
 import { useNavigate } from "react-router-dom";
 
-function LanguageSelectionPage() {
+function Home() {
   const [selectedLanguage, setSelectedLanguage] = useState(
     supportedLanguages[0],
   );
@@ -15,9 +15,8 @@ function LanguageSelectionPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="main">
-      <NavBar />
-      <div className="body">
+    <>
+      <div className="main-body">
         <Heading />
         <LanduageSelectionMenu
           selectedLanguage={selectedLanguage}
@@ -29,7 +28,7 @@ function LanguageSelectionPage() {
             heading="Code Alone"
             subHeading="Write and run your code independently"
             buttonText="Start Coding"
-            buttonClassName="primary"
+            buttonClassName="primary mn-width"
             handleClick={() =>
               navigate(`/codeArea/${selectedLanguage.languageCode}`)
             }
@@ -39,12 +38,12 @@ function LanguageSelectionPage() {
             heading="Code with a Friend"
             subHeading="Create or join a room to code together in real-time"
             buttonText="create / Join Room"
-            buttonClassName="primary"
+            buttonClassName="primary room-btn"
           />
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
-export default LanguageSelectionPage;
+export default Home;

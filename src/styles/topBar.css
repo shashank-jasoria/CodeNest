@@ -1,0 +1,97 @@
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.topBar-logobox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.topBar-text {
+  color: var(--text-primary);
+  font-size: 22px !important;
+}
+.right-part {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.top-bar_btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  border: 2px solid var(--border-primary);
+  background: var(--bg-tertiary);
+  padding: 7px 20px;
+  border-radius: 9px;
+  height: 35px;
+  min-width: max-content;
+  cursor: pointer;
+}
+.run-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 35px;
+}
+.topBar-dropdown {
+  width: 150px;
+  color: var(--text-secondary);
+  border: 2px solid var(--border-primary);
+  background: var(--bg-primary);
+  padding: 7px 8px;
+  border-radius: 9px;
+  height: 35px;
+  min-width: max-content;
+  cursor: pointer;
+}
+
+.label {
+  width: 60px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  height: 26px;
+  background-color: var(--bg-tertiary);
+  border-radius: 50px;
+  display: flex;
+  position: reletive;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.checkbox {
+  /*   making cehckbox invisible */
+  opacity: 0;
+  /*   although it is invisible, to make sure it does not space we do this */
+  position: absolute;
+}
+
+.ball {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background-color: var(--bg-primary);
+  border-radius: 30px;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s linear;
+}
+
+/* Get the value of the checkbox - done by targetting the checked element  */
+.checkbox:checked + .label .ball {
+  transform: translateX(35px);
+}
+.middle-part {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.mg-left {
+  margin-left: 15px;
+}

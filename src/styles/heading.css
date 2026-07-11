@@ -36,3 +36,8 @@
   color: var(--primary);
   font-size: 14px;
 }
+.header-leftPart {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}

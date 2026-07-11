@@ -1,13 +1,18 @@
 .type-body {
-  display: flex;
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  grid-template-rows: 1fr;
   border: 1px solid var(--border-primary);
   border-radius: 10px;
-  background: var(--bg-tertiary);
+  background: var(--bg-secondary);
   padding: 20px;
   gap: 20px;
-  align-items: end;
+  align-items: center;
+  justify-content: space-between;
   border: 1px solid var(--border-primary);
   box-shadow: var(--shadow-md);
+  width: 50%;
+  height: 120px;
 }
 .text-heading {
   font-weight: 600;
