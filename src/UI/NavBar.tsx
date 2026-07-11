@@ -1,4 +1,4 @@
-import "./../styles/NavBar.css";
+import "../styles/Navbar.css";
 import { AiOutlineHome } from "react-icons/ai";
 import { IoCodeSlashOutline } from "react-icons/io5";
 import { BsPeople } from "react-icons/bs";
