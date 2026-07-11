@@ -4,17 +4,17 @@ export const LanguageMap: Record<
 > = {
   cpp: {
     compileCommand: "g++",
-    runCommand: "a.exe",
+    runCommand: "./program", //"a.exe",
     runArgs: [],
   },
   java: {
     compileCommand: "javac",
     runCommand: "java",
-    runArgs: ["Main"],
+    runArgs: [],
   },
   python: {
     compileCommand: "",
-    runCommand: `C:/Python314/python.exe`,
-    runArgs: ["Main.py"],
+    runCommand: "python3", //`C:/Python314/python.exe`,
+    runArgs: [],
   },
 };

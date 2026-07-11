@@ -4,7 +4,7 @@ export const supportedLanguages = [
     languageCode: "cpp",
     isCompiled: true,
     sourceFileName: "Main.cpp",
-    targetFileName: "a.exe",
+    targetFileName: "program",
     boilerPlateCode:
       '#include <iostream>\nusing namespace std;\n\nint main() {\n\tcout<<"Hello, World!";\n\treturn 0;\n}',
   },

@@ -19,13 +19,20 @@ export const compileProgram = async ({
 }): Promise<CompilationResult> => {
   const filePath = path.join(os.tmpdir(), "compile-box");
   const { compileCommand } = LanguageMap[languageCode];
+
   return new Promise((resolve) => {
-    const compileProcess = spawn(compileCommand, [sourceFileName], {
+    const args: string[] = [sourceFileName];
+    if (languageCode === "cpp" || languageCode === "c") {
+      // Essential: tell the compiler what to name the output
+      args.push("-o", targetFileName);
+    }
+
+    const compileProcess = spawn(compileCommand, args, {
       shell: true,
       cwd: filePath,
     });
 
-    let output: string = "";
+    let output = "";
     compileProcess.stdout.on("data", (data) => {
       output += data;
     });
@@ -36,23 +43,14 @@ export const compileProgram = async ({
 
     compileProcess.on("exit", (code) => {
       if (code === 0) {
-        resolve({
-          status: "success",
-          message: `Compilation successful`,
-        });
+        resolve({ status: "success", message: "Compilation successful" });
       } else {
-        resolve({
-          status: "error",
-          message: JSON.stringify(errors),
-        });
+        resolve({ status: "error", message: JSON.stringify(errors) });
       }
     });
 
     compileProcess.on("error", (err) => {
-      resolve({
-        status: "error",
-        message: JSON.stringify(err),
-      });
+      resolve({ status: "error", message: JSON.stringify(err) });
     });
   });
 };

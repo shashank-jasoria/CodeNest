@@ -10,16 +10,33 @@ interface RunResult {
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const runProgram = async ({
+  runFile,
   languageCode,
 }: {
   runFile: string;
   languageCode: string;
 }): Promise<RunResult> => {
   const filePath = path.join(os.tmpdir(), "compile-box");
-  const { runCommand, runArgs } = LanguageMap[languageCode];
+  const { runCommand } = LanguageMap[languageCode];
 
+  // Determine the correct arguments for each language
+  const args: string[] = [];
+
+  if (languageCode === "python") {
+    // Interpreted: python script.py
+    args.push(runFile);
+  } else if (languageCode === "java") {
+    // Compiled: java ClassName
+    // If runFile still has ".class" extension, remove it
+    args.push(runFile.replace(/\.class$/, ""));
+  } else if (languageCode === "cpp" || languageCode === "c") {
+    // Compiled: runCommand is already "./program" (the executable), no arguments
+    // So args remains empty
+  }
+  console.log("Running:", runCommand, args);
+  console.log("cwd:", filePath);
   return new Promise((resolve) => {
-    const runnerProcess = spawn(runCommand, [...runArgs], {
+    const runnerProcess = spawn(runCommand, args, {
       shell: true,
       cwd: filePath,
     });
