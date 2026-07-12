@@ -31,6 +31,7 @@
   padding: 0px 20px;
   background: var(--bg-tertiary);
   box-shadow: var(--shadow-md);
+  cursor: pointer;
 }
 .button-text {
   color: var(--primary);

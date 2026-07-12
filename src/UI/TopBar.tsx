@@ -6,18 +6,21 @@ import { MdOutlineContentCopy } from "react-icons/md";
 import { HiOutlinePlay } from "react-icons/hi2";
 import { FaMoon, FaRegSun } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
+import { supportedLanguages } from "../data/LanguageConfig";
 export default function TopBar({
   selectedLanguage,
   onRunButtonClick,
   isRunning,
   onClear,
   onCopy,
+  onLanguageChange,
 }: {
   selectedLanguage: string;
   onRunButtonClick: () => void;
   isRunning: boolean;
   onClear: () => void;
   onCopy: () => void;
+  onLanguageChange: (code: string) => void;
 }) {
   const { theme, toggleTheme } = useTheme();
   return (
@@ -31,11 +34,16 @@ export default function TopBar({
         </div>
       </Link>
       <div className="middle-part">
-        <select className="topBar-dropdown ">
-          <option selected>{selectedLanguage}</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+        <select
+          className="topBar-dropdown"
+          value={selectedLanguage}
+          onChange={(e) => onLanguageChange(e.target.value)}
+        >
+          {supportedLanguages.map((language) => (
+            <option key={language.languageCode} value={language.languageCode}>
+              {language.language}
+            </option>
+          ))}
         </select>
         <div className="mg-left">
           <input

@@ -19,7 +19,11 @@ function Home() {
   return (
     <>
       <div className="main-body">
-        <Heading />
+        <Heading
+          handleClick={() =>
+            navigate(`/codeArea/${selectedLanguage.languageCode}`)
+          }
+        />
         <LanduageSelectionMenu
           selectedLanguage={selectedLanguage}
           setSelectedLanguage={setSelectedLanguage}

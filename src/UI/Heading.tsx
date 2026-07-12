@@ -3,7 +3,7 @@ import { IoCodeSlashOutline } from "react-icons/io5";
 import { FaMoon, FaRegSun } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
 // import { Link } from "react-router-dom"
-export default function Heading() {
+export default function Heading({ handleClick }: { handleClick?: () => void }) {
   const { theme, toggleTheme } = useTheme();
   return (
     <div className="container">
@@ -32,7 +32,7 @@ export default function Heading() {
             <div className="ball"></div>
           </label>
         </div>
-        <div className="button-box">
+        <div className="button-box" onClick={handleClick}>
           <IoCodeSlashOutline color="var(--primary)" />
           <div className="button-text">Got ot Editor</div>
         </div>

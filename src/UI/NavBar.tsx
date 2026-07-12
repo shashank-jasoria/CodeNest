@@ -30,7 +30,7 @@ export default function NavBar() {
             <div className="options-text">Home</div>
           </NavLink>
 
-          <NavLink
+          {/* <NavLink
             to="/codeArea/javascript"
             className={({ isActive }) =>
               `options ${isActive ? "active-link" : ""}`
@@ -40,7 +40,7 @@ export default function NavBar() {
               <IoCodeSlashOutline />
             </div>
             <div className="options-text">Editor</div>
-          </NavLink>
+          </NavLink> */}
 
           {/* <NavLink
             to="/rooms"

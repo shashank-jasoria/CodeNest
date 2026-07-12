@@ -15,11 +15,21 @@ function CodeArea() {
   const [terminalMessage, setTerminalMessage] = useState("Press Run Button!");
   const [isRunning, setIsRunning] = useState(false);
   const { language } = useParams();
-  const defaultConfig = supportedLanguages.find((languageConfig) => {
-    if (languageConfig.languageCode === language) {
-      return languageConfig;
-    }
+
+  const [selectedLanguage, setSelectedLanguage] = useState(() => {
+    return (
+      supportedLanguages.find((lang) => lang.languageCode === language) ??
+      supportedLanguages[0]
+    );
   });
+
+  const handleLanguageChange = (code: string) => {
+    const lang = supportedLanguages.find((l) => l.languageCode === code);
+
+    if (lang) {
+      setSelectedLanguage(lang);
+    }
+  };
 
   const editorRef = useRef<CodeInputRef>(null);
   const compileAndRun = async () => {
@@ -32,7 +42,7 @@ function CodeArea() {
       isCompiled,
       sourceFileName,
       targetFileName,
-    } = defaultConfig || {};
+    } = selectedLanguage || {};
     const response = await fetch("/compileAndRun", {
       method: "POST",
       headers: {
@@ -56,17 +66,18 @@ function CodeArea() {
   return (
     <div className="code-box">
       <TopBar
-        selectedLanguage={defaultConfig?.language || ""}
+        selectedLanguage={selectedLanguage.languageCode}
         onRunButtonClick={compileAndRun}
         isRunning={isRunning}
         onClear={() => editorRef.current?.clearCode()}
         onCopy={() => editorRef.current?.copyCode()}
+        onLanguageChange={handleLanguageChange}
       />
       <div className="process">
         <CodeInput
           ref={editorRef}
-          language={language}
-          defaultConfig={defaultConfig || {}}
+          language={selectedLanguage.language}
+          defaultConfig={selectedLanguage}
         />
         <CodeOutput terminalMessage={terminalMessage} />
       </div>
