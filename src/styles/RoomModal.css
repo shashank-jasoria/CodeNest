@@ -1,0 +1,171 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(8px);
+}
+
+.modal {
+  width: 1000px;
+  max-width: 95%;
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 40px;
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  border: none;
+  background: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.modal {
+  animation: popup 0.25s ease;
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  z-index: 999;
+}
+
+.room-modal {
+  width: 1100px;
+  max-width: 95%;
+  background: var(--card-bg);
+  border: 1px solid var(--border-primary);
+  border-radius: 20px;
+  padding: 35px;
+  position: relative;
+  animation: popup 0.25s ease;
+  height: 85%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+.room-modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.room-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.room-section h2 {
+  margin-bottom: 6px;
+}
+
+.room-section p {
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+}
+
+.room-section label {
+  margin-bottom: 8px;
+  margin-top: 18px;
+  font-weight: 600;
+}
+
+.room-section input,
+.room-section textarea,
+.room-section select {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border-primary);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  outline: none;
+  font-size: 15px;
+}
+
+.room-section textarea {
+  resize: none;
+}
+
+.primary-btn {
+  margin-top: 35px;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.primary-btn:hover {
+  background: var(--primary-hover);
+}
+
+.green {
+  background: #22c55e;
+}
+
+.green:hover {
+  background: #16a34a;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 22px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 900px) {
+  .room-modal-grid {
+    grid-template-columns: 1fr;
+  }
+}

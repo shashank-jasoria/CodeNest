@@ -6,11 +6,13 @@ import Heading from "../UI/Heading";
 import { useState } from "react";
 import { supportedLanguages } from "../data/LanguageConfig";
 import { useNavigate } from "react-router-dom";
+import RoomModal from "../modal/RoomModal";
 
 function Home() {
   const [selectedLanguage, setSelectedLanguage] = useState(
     supportedLanguages[0],
   );
+  const [showRoomModal, setShowRoomModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -39,9 +41,11 @@ function Home() {
             subHeading="Create or join a room to code together in real-time"
             buttonText="create / Join Room"
             buttonClassName="primary room-btn"
+            handleClick={() => setShowRoomModal(true)}
           />
         </div>
       </div>
+      {showRoomModal && <RoomModal onClose={() => setShowRoomModal(false)} />}
     </>
   );
 }
