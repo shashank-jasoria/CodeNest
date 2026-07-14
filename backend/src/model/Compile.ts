@@ -23,8 +23,9 @@ export const compileProgram = async ({
   return new Promise((resolve) => {
     const args: string[] = [sourceFileName];
     if (languageCode === "cpp" || languageCode === "c") {
-      // Essential: tell the compiler what to name the output
-      args.push("-o", targetFileName);
+      const outputName =
+        process.platform === "win32" ? targetFileName + ".exe" : targetFileName;
+      args.push("-o", outputName);
     }
 
     const compileProcess = spawn(compileCommand, args, {

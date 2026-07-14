@@ -17,26 +17,29 @@ export const runProgram = async ({
   languageCode: string;
 }): Promise<RunResult> => {
   const filePath = path.join(os.tmpdir(), "compile-box");
-  const { runCommand } = LanguageMap[languageCode];
-
-  // Determine the correct arguments for each language
-  const args: string[] = [];
+  let command: string;
+  let args: string[] = [];
 
   if (languageCode === "python") {
-    // Interpreted: python script.py
-    args.push(runFile);
+    command = "python3"; // or "python", adjust if needed
+    args = [runFile];
   } else if (languageCode === "java") {
-    // Compiled: java ClassName
-    // If runFile still has ".class" extension, remove it
-    args.push(runFile.replace(/\.class$/, ""));
+    command = "java";
+    args = [runFile.replace(/\.class$/, "")];
   } else if (languageCode === "cpp" || languageCode === "c") {
-    // Compiled: runCommand is already "./program" (the executable), no arguments
-    // So args remains empty
+    if (process.platform === "win32") {
+      command = runFile + ".exe";
+    } else {
+      command = "./" + runFile;
+    }
+  } else {
+    const { runCommand } = LanguageMap[languageCode];
+    command = runCommand;
+    args = [runFile];
   }
-  console.log("Running:", runCommand, args);
-  console.log("cwd:", filePath);
+
   return new Promise((resolve) => {
-    const runnerProcess = spawn(runCommand, args, {
+    const runnerProcess = spawn(command, args, {
       shell: true,
       cwd: filePath,
     });
