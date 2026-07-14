@@ -57,8 +57,6 @@ app.post("/joinRoom", (req, res) => {
   if (room.password !== password)
     return res.status(403).json({ error: "Wrong password" });
 
-  // Don't add user here – wait for WebSocket connection.
-  // But we can store the intended userName temporarily (not needed if sent with socket).
   res.json({
     success: true,
     room: { name: room.name, description: room.description, code: room.code },
@@ -69,7 +67,7 @@ const server = http.createServer(app);
 
 // websocket api ------------------------------------------------
 const io = new SocketIOServer(server, {
-  cors: { origin: "http://localhost:5173" }, // adjust for production
+  cors: { origin: "*" }, // adjust for production
 });
 
 io.on("connection", (socket) => {
@@ -114,12 +112,7 @@ io.on("connection", (socket) => {
     socket.to(roomName).emit("user-left", { userName, userId: socket.id });
   });
 
-  socket.on("disconnect", () => {
-    // Clean up any rooms the user was in
-    // (We'd need to track which rooms a socket belongs to – a simple map)
-    // For simplicity, you can loop through rooms and remove the socket.
-    // In a real app, maintain a socket->rooms mapping.
-  });
+  socket.on("disconnect", () => {});
 });
 // /------------------------------------------------------------------------
 

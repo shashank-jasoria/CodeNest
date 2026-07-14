@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import Editor from "@monaco-editor/react";
 import TitleBar from "./TitleBar";
 import { useTheme } from "../context/ThemeContext";
@@ -10,17 +16,21 @@ export interface CodeInputRef {
   clearCode: () => void;
   copyCode: () => void;
   getValue: () => string;
+  setValue: (code: string) => void;
 }
 
 interface CodeInputProps {
   defaultConfig?: any;
   language?: string;
+  onCodeChange?: (code: string) => void;
 }
 
 const CodeInput = forwardRef<CodeInputRef, CodeInputProps>(
-  ({ defaultConfig, language }, ref) => {
+  ({ defaultConfig, language, onCodeChange }, ref) => {
     const { theme } = useTheme();
     const editorRef = useRef<any>(null);
+    const isRemoteUpdate = useRef(false);
+    const [code, setCode] = useState(defaultConfig.boilerPlateCode);
     useEffect(() => {
       if (!editorRef.current) return;
 
@@ -58,6 +68,10 @@ const CodeInput = forwardRef<CodeInputRef, CodeInputProps>(
       getValue() {
         return editorRef.current?.getValue() || "";
       },
+      setValue(code: string) {
+        isRemoteUpdate.current = true;
+        editorRef.current?.setValue(code);
+      },
     }));
 
     return (
@@ -67,8 +81,20 @@ const CodeInput = forwardRef<CodeInputRef, CodeInputProps>(
           height="78vh"
           theme={theme === "dark" ? "vs-dark" : "vs"}
           language={defaultConfig?.languageCode}
-          value={defaultConfig?.boilerPlateCode}
+          value={code}
           onMount={handleEditorDidMount}
+          onChange={(value) => {
+            const newCode = value ?? "";
+
+            setCode(newCode);
+
+            if (isRemoteUpdate.current) {
+              isRemoteUpdate.current = false;
+              return;
+            }
+
+            onCodeChange?.(newCode);
+          }}
           options={{
             fontFamily: "JetBrains Mono",
             fontSize: 15,

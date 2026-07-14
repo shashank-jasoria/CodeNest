@@ -13,7 +13,8 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
         </Route>
-        <Route path="/codeArea/:language" element={<CodeArea />}></Route>
+        <Route path="/codeArea/:language" element={<CodeArea />} />
+        <Route path="/room/:roomName" element={<CodeArea />} />
       </Routes>
       <ToastContainer
         position="bottom-right"
