@@ -3,23 +3,21 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import { supportedLanguages } from "../data/LanguageConfig";
-import { useTheme } from "../context/ThemeContext";
 import API_BASE from "../config/apiconfig";
+import { toast } from "react-toastify";
+
 type RoomModalProps = {
   onClose: () => void;
 };
 
 function RoomModal({ onClose }: RoomModalProps) {
   const navigate = useNavigate();
-  const { theme } = useTheme();
 
   // Create Room
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [password, setPassword] = useState("");
   const [language, setLanguage] = useState(supportedLanguages[0].languageCode);
-  const [selectedTheme, setSelectedTheme] = useState(theme);
-
   // Join Room
   const [joinName, setJoinName] = useState("");
   const [joinPassword, setJoinPassword] = useState("");
@@ -37,17 +35,14 @@ function RoomModal({ onClose }: RoomModalProps) {
           description,
           password,
           language,
-          theme: selectedTheme,
         }),
       });
-
       const data = await res.json();
-
       if (!res.ok) {
-        alert(data.message);
+        console.log("data", data);
+        toast.error(data.error);
         return;
       }
-
       navigate(`/room/${name}`);
     } catch (err) {
       console.error(err);
@@ -71,7 +66,7 @@ function RoomModal({ onClose }: RoomModalProps) {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        toast.error(data.error);
         return;
       }
 
@@ -80,20 +75,17 @@ function RoomModal({ onClose }: RoomModalProps) {
       console.error(err);
     }
   };
-
   return (
     <div className="modal-overlay">
       <div className="room-modal card">
         <button className="close-btn" onClick={onClose}>
           <IoClose />
         </button>
-
         <div className="room-modal-grid">
           {/* CREATE ROOM */}
           <div className="room-section">
             <h2>Create Room</h2>
             <p>Create a coding room and invite your friend.</p>
-
             <label>Room Name</label>
             <input
               type="text"
@@ -101,7 +93,6 @@ function RoomModal({ onClose }: RoomModalProps) {
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter room name"
             />
-
             <label>Description</label>
             <textarea
               rows={4}
@@ -109,7 +100,6 @@ function RoomModal({ onClose }: RoomModalProps) {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Room description (optional)"
             />
-
             <label>Password</label>
             <input
               type="password"
@@ -117,7 +107,6 @@ function RoomModal({ onClose }: RoomModalProps) {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Room password"
             />
-
             <label>Language</label>
             <select
               value={language}
@@ -129,28 +118,14 @@ function RoomModal({ onClose }: RoomModalProps) {
                 </option>
               ))}
             </select>
-
-            <label>Theme</label>
-            <select
-              value={selectedTheme}
-              onChange={(e) =>
-                setSelectedTheme(e.target.value as "light" | "dark")
-              }
-            >
-              <option value="dark">Dark</option>
-              <option value="light">Light</option>
-            </select>
-
             <button className="primary-btn" onClick={handleSubmit}>
               Create Room
             </button>
           </div>
-
           {/* JOIN ROOM */}
           <div className="room-section">
             <h2>Join Room</h2>
             <p>Join an existing coding room.</p>
-
             <label>Room Name</label>
             <input
               type="text"
@@ -158,7 +133,6 @@ function RoomModal({ onClose }: RoomModalProps) {
               onChange={(e) => setJoinName(e.target.value)}
               placeholder="Enter room name"
             />
-
             <label>Password</label>
             <input
               type="password"
@@ -166,7 +140,6 @@ function RoomModal({ onClose }: RoomModalProps) {
               onChange={(e) => setJoinPassword(e.target.value)}
               placeholder="Room password"
             />
-
             <label>Username</label>
             <input
               type="text"
@@ -174,7 +147,6 @@ function RoomModal({ onClose }: RoomModalProps) {
               onChange={(e) => setUserName(e.target.value)}
               placeholder="Enter your name"
             />
-
             <button className="primary-btn green" onClick={handleJoin}>
               Join Room
             </button>

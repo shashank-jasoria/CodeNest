@@ -7,24 +7,22 @@ import { supportedLanguages } from "../data/LanguageConfig";
 import { useEffect, useState } from "react";
 import TopBar from "../UI/TopBar";
 import { useRef } from "react";
-import CodeInput, { CodeInputRef } from "./../UI/CodeInput";
+import CodeInput from "./../UI/CodeInput";
 import CodeOutput from "../UI/CodeOutput";
 import { io, Socket } from "socket.io-client";
 import API_BASE from "../config/apiconfig";
+import { toast } from "react-toastify";
 
 function CodeArea() {
-  // const editorRef = useRef<any>(null);
   const [terminalMessage, setTerminalMessage] = useState("Press Run Button!");
   const [isRunning, setIsRunning] = useState(false);
+  const [code, setCode] = useState("");
   const { language, roomName } = useParams();
-
   const isCollaborative = Boolean(roomName);
   const socketRef = useRef<Socket | null>(null);
   useEffect(() => {
     if (!isCollaborative || !roomName) return;
-
     socketRef.current = io(API_BASE);
-
     socketRef.current.emit("join-room", {
       roomName,
     });
@@ -37,12 +35,11 @@ function CodeArea() {
       if (config) {
         setSelectedLanguage(config);
       }
-
-      editorRef.current?.setValue(code);
+      setCode(code || config?.boilerPlateCode || "");
     });
 
     socketRef.current.on("code-update", ({ code }) => {
-      editorRef.current?.setValue(code);
+      setCode(code);
     });
 
     return () => {
@@ -54,19 +51,25 @@ function CodeArea() {
     };
   }, [isCollaborative, roomName]);
 
-  const [selectedLanguage, setSelectedLanguage] = useState(() => {
-    return (
-      supportedLanguages.find((lang) => lang.languageCode === language) ??
-      supportedLanguages[0]
-    );
-  });
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    supportedLanguages[0],
+  );
+  useEffect(() => {
+    if (!roomName && language) {
+      const lang = supportedLanguages.find((l) => l.languageCode === language);
 
-  const handleCodeChange = (code: string) => {
+      if (lang) setSelectedLanguage(lang);
+    }
+  }, [language, roomName]);
+
+  const handleCodeChange = (newCode: string) => {
+    setCode(newCode);
+
     if (!isCollaborative) return;
 
     socketRef.current?.emit("code-change", {
       roomName,
-      code,
+      code: newCode,
     });
   };
 
@@ -78,11 +81,9 @@ function CodeArea() {
     }
   };
 
-  const editorRef = useRef<CodeInputRef>(null);
   const compileAndRun = async () => {
     setIsRunning(true);
     setTerminalMessage("Loading...");
-    const code = editorRef.current?.getValue();
     const {
       language,
       languageCode,
@@ -116,14 +117,21 @@ function CodeArea() {
         selectedLanguage={selectedLanguage.languageCode}
         onRunButtonClick={compileAndRun}
         isRunning={isRunning}
-        onClear={() => editorRef.current?.clearCode()}
-        onCopy={() => editorRef.current?.copyCode()}
+        onClear={() => setCode(selectedLanguage.boilerPlateCode)}
+        onCopy={async () => {
+          try {
+            await navigator.clipboard.writeText(code);
+            toast.success("Code copied to clipboard!");
+          } catch {
+            toast.error("Failed to copy code.");
+          }
+        }}
         onLanguageChange={handleLanguageChange}
       />
       <div className="process">
         <CodeInput
-          ref={editorRef}
-          language={selectedLanguage.language}
+          code={code}
+          setCode={setCode}
           defaultConfig={selectedLanguage}
           onCodeChange={handleCodeChange}
         />

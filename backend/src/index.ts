@@ -32,17 +32,21 @@ app.get("/healthCheck", healthChecks);
 app.post("/compileAndRun", compileAndRun);
 
 app.post("/createRoom", (req, res) => {
-  const { name, password, description } = req.body;
+  const { name, password, description, language } = req.body;
   if (!name || !password) {
     return res.status(400).json({ error: "Name and password required" });
   }
   const existing = getRoom(name);
   if (existing) return res.status(409).json({ error: "Room already exists" });
 
-  const room = createRoom(name, password, description);
+  const room = createRoom(name, password, language, description);
   res.json({
     success: true,
-    room: { name: room?.name, description: room?.description },
+    room: {
+      name: room?.name,
+      description: room?.description,
+      language: room?.language,
+    },
   });
 });
 
@@ -60,7 +64,12 @@ app.post("/joinRoom", (req, res) => {
 
   res.json({
     success: true,
-    room: { name: room.name, description: room.description, code: room.code },
+    room: {
+      name: room.name,
+      description: room.description,
+      code: room.code,
+      userName: userName,
+    },
   });
 });
 
@@ -86,6 +95,7 @@ io.on("connection", (socket) => {
     // Send current code to the new user
     socket.emit("room-joined", {
       code: room.code,
+      language: room.language,
       users: getUsersInRoom(roomName),
     });
 

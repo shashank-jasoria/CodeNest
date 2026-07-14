@@ -3,6 +3,7 @@ interface Room {
   description?: string;
   password: string;
   code: string;
+  language: string;
   users: Map<string, string>; // socketId -> userName
 }
 
@@ -11,6 +12,7 @@ const rooms = new Map<string, Room>();
 export const createRoom = (
   name: string,
   password: string,
+  language: string,
   description?: string,
 ) => {
   if (rooms.has(name)) return null;
@@ -18,6 +20,7 @@ export const createRoom = (
     name,
     description,
     password,
+    language,
     code: "", // start with empty code
     users: new Map(),
   });
