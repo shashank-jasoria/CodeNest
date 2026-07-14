@@ -20,6 +20,7 @@ import path from "path";
 
 app.use(
   cors({
+    origin: true, // Reflects the request origin
     credentials: true,
   }),
 );
