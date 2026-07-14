@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import { supportedLanguages } from "../data/LanguageConfig";
 import { useTheme } from "../context/ThemeContext";
-
+import API_BASE from "../config/apiconfig";
 type RoomModalProps = {
   onClose: () => void;
 };
@@ -27,7 +27,7 @@ function RoomModal({ onClose }: RoomModalProps) {
 
   const handleSubmit = async () => {
     try {
-      const res = await fetch("http://localhost:3300/createRoom", {
+      const res = await fetch(`${API_BASE}/createRoom`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +56,7 @@ function RoomModal({ onClose }: RoomModalProps) {
 
   const handleJoin = async () => {
     try {
-      const res = await fetch("http://localhost:3300/joinRoom", {
+      const res = await fetch(`${API_BASE}/joinRoom`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

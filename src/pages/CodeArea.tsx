@@ -10,6 +10,7 @@ import { useRef } from "react";
 import CodeInput, { CodeInputRef } from "./../UI/CodeInput";
 import CodeOutput from "../UI/CodeOutput";
 import { io, Socket } from "socket.io-client";
+import API_BASE from "../config/apiconfig";
 
 function CodeArea() {
   // const editorRef = useRef<any>(null);
@@ -22,7 +23,7 @@ function CodeArea() {
   useEffect(() => {
     if (!isCollaborative || !roomName) return;
 
-    socketRef.current = io("http://localhost:3300");
+    socketRef.current = io(API_BASE);
 
     socketRef.current.emit("join-room", {
       roomName,
@@ -89,7 +90,7 @@ function CodeArea() {
       sourceFileName,
       targetFileName,
     } = selectedLanguage || {};
-    const response = await fetch("http://localhost:3300/compileAndRun", {
+    const response = await fetch(`${API_BASE}/compileAndRun`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
