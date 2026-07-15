@@ -1,5 +1,5 @@
 .navBody {
-  width: 300px;
+  width: max-content;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -45,6 +45,7 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  width: 250px;
 }
 .nav-footer {
   background: var(--bg-tertiary);

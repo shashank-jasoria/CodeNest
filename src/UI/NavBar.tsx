@@ -2,7 +2,7 @@ import "../styles/Navbar.css";
 import { AiOutlineHome } from "react-icons/ai";
 import { IoCodeSlashOutline } from "react-icons/io5";
 // import { BsPeople } from "react-icons/bs";
-// import { BsExclamationCircle } from "react-icons/bs";
+import { BsExclamationCircle } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 
 export default function NavBar() {
@@ -28,6 +28,17 @@ export default function NavBar() {
               <AiOutlineHome />
             </div>
             <div className="options-text">Home</div>
+          </NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              `options ${isActive ? "active-link" : ""}`
+            }
+          >
+            <div className="options-img">
+              <BsExclamationCircle />
+            </div>
+            <div className="options-text">About</div>
           </NavLink>
 
           {/* <NavLink
@@ -64,18 +75,6 @@ export default function NavBar() {
               <div className="stripe_inner"> In Developement</div>
             </div>
           </div>
-
-          {/* <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              `options ${isActive ? "active-link" : ""}`
-            }
-          >
-            <div className="options-img">
-              <BsExclamationCircle />
-            </div>
-            <div className="options-text">About</div>
-          </NavLink> */}
         </div>
 
         <div className="nav-footer">
